@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('app.adminlayout')
 
 @section('title', 'Edit Mitra Kewirausahaan')
 

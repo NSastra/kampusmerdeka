@@ -6,22 +6,6 @@ use App\Http\Controllers\KaprodiController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Pendaftaran\KemanusiaanController;
-use App\Http\Controllers\Pendaftaran\KknController;
-use App\Http\Controllers\Pendaftaran\MagangController;
-use App\Http\Controllers\Pendaftaran\MengajarController;
-use App\Http\Controllers\Pendaftaran\PenelitianController;
-use App\Http\Controllers\Pendaftaran\PertukaranController;
-use App\Http\Controllers\Pendaftaran\StudiController;
-use App\Http\Controllers\Pendaftaran\WirausahaController;
-// use App\Http\Controllers\Pendaftaran\MagangController;
-// use App\Http\Controllers\Pendaftaran\KknController;
-// use App\Http\Controllers\Pendaftaran\MengajarController;
-// use App\Http\Controllers\Pendaftaran\PenelitianController;
-// use App\Http\Controllers\Pendaftaran\StudiController;
-// use App\Http\Controllers\Pendaftaran\KemanusiaanController;
-// use App\Http\Controllers\Pendaftaran\WirausahaController;
-// use App\Http\Controllers\Pendaftaran\PertukaranController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +36,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/logout', [AdminController::class, 'logout']);
     Route::get('/kaprodi/logout', [KaprodiController::class, 'logout']);
     Route::get('/mahasiswa/logout', [MahasiswaController::class, 'logout']);
+    Route::get('/mahasiswa/showchangepw', [MahasiswaController::class, 'showchangepw']);
+    Route::post('/mahasiswa/changepassword', [MahasiswaController::class, 'changepassword']);
+    Route::get('/mahasiswa/showeditprofil', [MahasiswaController::class, 'showeditprofil']);
+    Route::post('/mahasiswa/editprofil', [MahasiswaController::class, 'editprofil']);
+    // Route::post('/mahasiswa/uploadfoto', [MahasiswaController::class, 'uploadfoto']);
 });
 
 //Route::get('/admin/index', [AdminController::class, 'index']);
@@ -59,12 +48,6 @@ Route::get('admin/showlogin', [AdminController::class, 'showlogin']);
 Route::post('/admin/login', [AdminController::class, 'login']);
 Route::get('/admin/showregister', [AdminController::class, 'showregister']);
 Route::post('/admin/register', [AdminController::class, 'register']);
-
-Route::get('/admin/showvalidasi', [AdminController::class, 'showvalidasi']);
-Route::post('/admin/createvalid', [AdminController::class, 'createvalid']);
-Route::get('/admin/showeditvalid/{id}', [AdminController::class, 'showeditvalid']);
-Route::put('/admin/editvalid/{id}', [AdminController::class, 'editvalid']);
-Route::delete('/admin/hapusvalid/{id}', [AdminController::class, 'hapusvalid']);
 
 Route::get('/admin/magang', [AdminController::class, 'showmagang']);
 Route::post('/admin/createmagang', [AdminController::class, 'createmagang']);
@@ -262,12 +245,10 @@ Route::get('/mahasiswa/showregister', [MahasiswaController::class, 'showregister
 Route::post('/mahasiswa/register', [MahasiswaController::class, 'register']);
 
 Route::get('/mahasiswa/showdaftarmagang', [MahasiswaController::class, 'showdaftarmagang']);
-// Route::get('/mahasiswa/prs/magang', [MahasiswaController::class, 'prsmagang']);
 Route::post('/mahasiswa/daftarmagang', [MahasiswaController::class, 'daftarmagang']);
 
 Route::get('/mahasiswa/showdaftarkkn', [MahasiswaController::class, 'showdaftarkkn']);
 Route::post('/mahasiswa/daftarkkn', [MahasiswaController::class, 'daftarkkn']);
-// Route::get('/mahasiswa/prs/kkn', [MahasiswaController::class, 'prskkn']);
 
 Route::get('/mahasiswa/showdaftarplt', [MahasiswaController::class, 'showdaftarplt']);
 Route::post('/mahasiswa/daftarplt', [MahasiswaController::class, 'daftarplt']);
@@ -277,7 +258,6 @@ Route::post('/mahasiswa/daftarajar', [MahasiswaController::class, 'daftarajar'])
 
 Route::get('/mahasiswa/showdaftarstudi', [MahasiswaController::class, 'showdaftarstudi']);
 Route::post('/mahasiswa/daftarstudi', [MahasiswaController::class, 'daftarstudi']);
-// Route::get('/mahasiswa/prs/studi', [MahasiswaController::class, 'prsstudi']);
 
 Route::get('/mahasiswa/showdaftarkms', [MahasiswaController::class, 'showdaftarkms']);
 Route::post('/mahasiswa/daftarkms', [MahasiswaController::class, 'daftarkms']);
@@ -289,6 +269,7 @@ Route::get('/mahasiswa/showdaftarptk', [MahasiswaController::class, 'showdaftarp
 Route::post('/mahasiswa/daftarptk', [MahasiswaController::class, 'daftarptk']);
 
 Route::get('/mahasiswa/profile', [MahasiswaController::class, 'profile']);
+Route::get('/mahasiswa/statusdaftar', [MahasiswaController::class, 'statusdaftar']);
 Route::post('/mahasiswa/createfile', [MahasiswaController::class, 'createfile']);
 Route::post('/mahasiswa/createlprn', [MahasiswaController::class, 'createlprn']);
 Route::post('/mahasiswa/createsurat', [MahasiswaController::class, 'createsurat']);

@@ -728,44 +728,6 @@ class AdminController extends Controller
         return redirect('/admin/regakun');
     }
 
-    public function showvalidasi(){
-        $Validasi = Validasi::orderBy('id')->get();
-        return view('admin.showvalidasi', compact('Validasi'));
-    }
-
-    public function createvalid(Request $request){
-        $request->validate([
-            'nama_mhs' => 'required|min:5|max:50',
-            'nim' => 'required|numeric',
-            'semester' => 'required',
-            'kelas' => 'required',
-            'kegiatan' => 'required',
-            'status' => 'required',
-            'keterangan' => 'required',
-        ]);
-
-        $Validasi = new Validasi;
-        $Validasi->nama_mhs = $request->nama_mhs;
-        $Validasi->nim = $request->nim;
-        $Validasi->kelas = $request->kelas;
-        $Validasi->semester = $request->semester;
-        $Validasi->kegiatan = $request->kegiatan;
-        $Validasi->status = $request->status;
-        $Validasi->keterangan = $request->keterangan;
-        $save = $Validasi->save();
-
-        if($save){
-            return redirect('/admin/showvalidasi');
-        } else {
-            return redirect('/admin/showvalidasi');
-        }
-    }
-
-    public function showeditvalid($id){
-        $Validasi = Validasi::find($id);
-        return view('admin.editvalidasi', ['Validasi' => $Validasi]);
-    }
-
     public function editvalid(Request $request, $id){
         $request->validate([
             'nama_mhs' => 'required|min:5|max:50',

@@ -1,4 +1,4 @@
-@extends('mahasiswa.loginlayout')
+@extends('app.createlayout')
 
 @section('title', 'Upload Dokumen')
 

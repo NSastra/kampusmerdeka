@@ -16,7 +16,6 @@ use App\Models\Pertukaran;
 use App\Models\Kkn;
 use App\Models\Penelitian;
 use App\Models\Mengajar;
-use App\Models\Validasi;
 use App\Models\Laporan;
 use App\Models\Surat;
 use App\Models\File;
@@ -144,280 +143,16 @@ class MahasiswaController extends Controller
         return view('mahasiswa.profile', compact('Magang', 'Studi', 'Kemanusiaan', 'Kkn', 'Penelitian', 'Mengajar', 'Pertukaran', 'Kewirausahaan'));
     }
 
-    public function pengumuman(){
-        $Validasi = Validasi::orderBy('created_at', 'desc')->get();
-        return view('mahasiswa.pengumuman', compact('Validasi'));
-    }
-
-    public function showdaftarmagang(){
-        // return view('mahasiswa.showdaftarmagang');
-
-        if (Auth::check()){
-            return redirect('/mahasiswa/showdaftarmagang');
-        } else {
-            Session::flash('error', 'Email atau Password salah');
-            return redirect('/mahasiswa/showlogin');
-        }
-    }
-
-    // public function prsmagang(){
-    //     $Prsmagang = Prsmagang::orderBy('id')->get();
-    //     return view('mahasiswa.prsmagang', compact('Prsmagang'));
-    // }
-
-    public function showdaftarkkn(){
-        // return view('mahasiswa.showdaftarkkn');
-
-        if (Auth::check()){
-            return redirect('/mahasiswa/showdaftarkkn');
-        } else {
-            // Session::flash('error', 'Email atau Password salah');
-            return redirect('/mahasiswa/showlogin');
-        }
-    }
-
-    public function prskkn(){
-        $Prskkn = Prskkn::orderBy('id')->get();
-        return view('mahasiswa.prskkn', compact('Prskkn'));
-    }
-
-    public function showdaftarajar(){
-        // return view('mahasiswa.showdaftarajar');
-
-        if (Auth::check()){
-            return redirect('/mahasiswa/showdaftarajar');
-        } else {
-            // Session::flash('error', 'Email atau Password salah');
-            return redirect('/mahasiswa/showlogin');
-        }
-    }
-
-    public function showdaftarplt(){
-        return view('mahasiswa.showdaftarplt');
-    }
-
-    public function showdaftarstudi(){
-        return view('mahasiswa.showdaftarstudi');
-    }
-
-    public function prsstudi(){
-        $Prsstudi = Prsstudi::orderBy('id')->get();
-        return view('mahasiswa.prsstudi', compact('Prsstudi'));
-    }
-
-    public function showdaftarkms(){
-        return view('mahasiswa.showdaftarkms');
-    }
-
-    public function showdaftarptk(){
-        return view('mahasiswa.showdaftarptk');
-    }
-
-    public function showdaftarkwu(){
-        return view('mahasiswa.showdaftarkwu');
-    }
-
-    public function daftarmagang(Request $request){
-        $request->validate([
-            'nama_mhs' => 'required|min:5|max:50',
-            'nim' => 'required|numeric|min:10|max:10|numeric',
-            'semester' => 'required',
-            'kelas' => 'required',
-            'kegiatan' => 'required'
-        ]);
-
-        $magang = new Magang;
-        $magang->nama_mhs = ucwords(strtolower($request->nama_mhs));
-        $magang->nim = ucwords(strtolower($request->nim));
-        $magang->semester = ucwords(strtolower($request->semester));
-        $magang->kelas = ucwords(strtolower($request->kelas));
-        $magang->kegiatan = ucwords(strtolower($request->kegiatan));
-        $save = $magang->save();
-
-        if($save){
-            //Session::flash('success', 'Registrasi Akun Berhasil, Silakan Login Untuk Melanjutkan');
-            return redirect('/mahasiswa/index');
-        } else {
-            //Session::flash('errors', ['' => 'Registrasi Gagal, Silakan Ulangi Proses Registrasi Anda']);
-            return redirect('/mahasiswa/showdaftarmagang');
-        }
-    }
-
-    public function daftarkms(Request $request){
-        $request->validate([
-            'nama_mhs' => 'required|min:5|max:50',
-            'nim' => 'required|numeric|min:10|max:10|numeric',
-            'semester' => 'required',
-            'kelas' => 'required',
-            'kegiatan' => 'required'
-        ]);
-
-        $kemanusiaan = new Kemanusiaan;
-        $kemanusiaan->nama_mhs = ucwords(strtolower($request->nama_mhs));
-        $kemanusiaan->nim = ucwords(strtolower($request->nim));
-        $kemanusiaan->semester = ucwords(strtolower($request->semester));
-        $kemanusiaan->kelas = ucwords(strtolower($request->kelas));
-        $kemanusiaan->kegiatan = ucwords(strtolower($request->kegiatan));
-        $save = $kemanusiaan->save();
-
-        if($save){
-            //Session::flash('success', 'Registrasi Akun Berhasil, Silakan Login Untuk Melanjutkan');
-            return redirect('/mahasiswa/index');
-        } else {
-            //Session::flash('errors', ['' => 'Registrasi Gagal, Silakan Ulangi Proses Registrasi Anda']);
-            return redirect('/mahasiswa/showdaftarkms');
-        }
-    }
-
-    public function daftarkkn(Request $request){
-        $request->validate([
-            'nama_mhs' => 'required|min:5|max:50',
-            'nim' => 'required|numeric|min:10|max:10|numeric',
-            'semester' => 'required',
-            'kelas' => 'required',
-            'kegiatan' => 'required',
-        ]);
-        
-        $kkn = new Kkn;
-        $kkn->nama_mhs = ucwords(strtolower($request->nama_mhs));
-        $kkn->nim = ucwords(strtolower($request->nim));
-        $kkn->semester = ucwords(strtolower($request->semester));
-        $kkn->kelas = ucwords(strtolower($request->kelas));
-        $kkn->kegiatan = ucwords(strtolower($request->kegiatan));
-        $save = $kkn->save();
-
-        if($save){
-            //Session::flash('success', 'Registrasi Akun Berhasil, Silakan Login Untuk Melanjutkan');
-            return redirect('/mahasiswa/index');
-        } else {
-            //Session::flash('errors', ['' => 'Registrasi Gagal, Silakan Ulangi Proses Registrasi Anda']);
-            return redirect('/mahasiswa/showdaftarkkn');
-        }
-    }
-
-    public function daftarkwu(Request $request){
-        $request->validate([
-            'nama_mhs' => 'required|min:5|max:50',
-            'nim' => 'required|numeric|min:10|max:10|numeric',
-            'semester' => 'required',
-            'kelas' => 'required',
-            'kegiatan' => 'required',
-        ]);
-
-        $kewirausahaan = new Kewirausahaan;
-        $kewirausahaan->nama_mhs = ucwords(strtolower($request->nama_mhs));
-        $kewirausahaan->nim = ucwords(strtolower($request->nim));
-        $kewirausahaan->semester = ucwords(strtolower($request->semester));
-        $kewirausahaan->kelas = ucwords(strtolower($request->kelas));
-        $kewirausahaan->kegiatan = ucwords(strtolower($request->kegiatan));
-        $save = $kewirausahaan->save();
-
-        if($save){
-            //Session::flash('success', 'Registrasi Akun Berhasil, Silakan Login Untuk Melanjutkan');
-            return redirect('/mahasiswa/index');
-        } else {
-            //Session::flash('errors', ['' => 'Registrasi Gagal, Silakan Ulangi Proses Registrasi Anda']);
-            return redirect('/mahasiswa/showdaftarkwu');
-        }
-    }
-
-    public function daftarptk(Request $request){
-        $request->validate([
-            'nama_mhs' => 'required|min:5|max:50',
-            'nim' => 'required|numeric|min:10|max:10|numeric',
-            'semester' => 'required',
-            'kelas' => 'required',
-            'kegiatan' => 'required',
-        ]);
-
-        $pertukaran = new Pertukaran;
-        $pertukaran->nama_mhs = ucwords(strtolower($request->nama_mhs));
-        $pertukaran->nim = ucwords(strtolower($request->nim));
-        $pertukaran->semester = ucwords(strtolower($request->semester));
-        $pertukaran->kelas = ucwords(strtolower($request->kelas));
-        $pertukaran->kegiatan = ucwords(strtolower($request->kegiatan));
-        $save = $pertukaran->save();
-
-        if($save){
-            //Session::flash('success', 'Registrasi Akun Berhasil, Silakan Login Untuk Melanjutkan');
-            return redirect('/mahasiswa/index');
-        } else {
-            //Session::flash('errors', ['' => 'Registrasi Gagal, Silakan Ulangi Proses Registrasi Anda']);
-            return redirect('/mahasiswa/showdaftarptk');
-        }
-    }
-
-    public function daftarstudi(Request $request){
-        $request->validate([
-            'nama_mhs' => 'required|min:5|max:50',
-            'nim' => 'required|numeric|min:10|max:10|numeric',
-            'semester' => 'required',
-            'kelas' => 'required',
-            'kegiatan' => 'required',
-        ]);
-
-        $studi = new Studi;
-        $studi->nama_mhs = ucwords(strtolower($request->nama_mhs));
-        $studi->nim = ucwords(strtolower($request->nim));
-        $studi->semester = ucwords(strtolower($request->semester));
-        $studi->kelas = ucwords(strtolower($request->kelas));
-        $studi->nama_lmbg = ucwords(strtolower($request->nama_lmbg));
-        $studi->detail = ucwords(strtolower($request->detail));
-        $save = $studi->save();
-
-        if($save){
-            //Session::flash('success', 'Registrasi Akun Berhasil, Silakan Login Untuk Melanjutkan');
-            return redirect('/mahasiswa/index');
-        } else {
-            //Session::flash('errors', ['' => 'Registrasi Gagal, Silakan Ulangi Proses Registrasi Anda']);
-            return redirect('/mahasiswa/showdaftarstudi');
-        }
-    }
-
-    public function daftarplt(Request $request){
-        $penelitian = new Penelitian;
-        $penelitian->nama_mhs = ucwords(strtolower($request->nama_mhs));
-        $penelitian->nim = ucwords(strtolower($request->nim));
-        $penelitian->semester = ucwords(strtolower($request->semester));
-        $penelitian->kelas = ucwords(strtolower($request->kelas));
-        $penelitian->kegiatan = ucwords(strtolower($request->kegiatan));
-        $save = $penelitian->save();
-
-        if($save){
-            //Session::flash('success', 'Registrasi Akun Berhasil, Silakan Login Untuk Melanjutkan');
-            return redirect('/mahasiswa/index');
-        } else {
-            //Session::flash('errors', ['' => 'Registrasi Gagal, Silakan Ulangi Proses Registrasi Anda']);
-            return redirect('/mahasiswa/showdaftarplt');
-        }
-    }
-
-    public function daftarajar(Request $request){
-        $request->validate([
-            'nama_mhs' => 'required|min:5|max:50',
-            'nim' => 'required|numeric|min:10|max:10|numeric',
-            'semester' => 'required',
-            'kelas' => 'required',
-            'kegiatan' => 'required',
-        ]);
-
-        $mengajar = new Mengajar;
-        $mengajar->nama_mhs = ucwords(strtolower($request->nama_mhs));
-        $mengajar->nim = ucwords(strtolower($request->nim));
-        $mengajar->semester = ucwords(strtolower($request->semester));
-        $mengajar->kelas = ucwords(strtolower($request->kelas));
-        $mengajar->kegiatan = ucwords(strtolower($request->kegiatan));
-        // $user_id = auth()->id();
-        $mengajar->users_id = \Auth::user()->id;
-        $save = $mengajar->save();
-
-        if($save){
-            //Session::flash('success', 'Registrasi Akun Berhasil, Silakan Login Untuk Melanjutkan');
-            return redirect('/mahasiswa/index');
-        } else {
-            //Session::flash('errors', ['' => 'Registrasi Gagal, Silakan Ulangi Proses Registrasi Anda']);
-            return redirect('/mahasiswa/showdaftarajar');
-        }
+    public function statusdaftar(){
+        $Magang = Magang::where('users_id', Auth::id())->get();
+        $Penelitian = Penelitian::where('users_id', Auth::id())->get();
+        $Pertukaran = Pertukaran::where('users_id', Auth::id())->get();
+        $Studi = Studi::where('users_id', Auth::id())->get();
+        $Kewirausahaan = Kewirausahaan::where('users_id', Auth::id())->get();
+        $Kemanusiaan = Kemanusiaan::where('users_id', Auth::id())->get();
+        $Mengajar = Mengajar::where('users_id', Auth::id())->get();
+        $Kkn = Kkn::where('users_id', Auth::id())->get();
+        return view('mahasiswa.statusdaftar', compact('Magang', 'Studi', 'Kemanusiaan', 'Kkn', 'Penelitian', 'Mengajar', 'Pertukaran', 'Kewirausahaan'));
     }
 
     public function showcreatedok(){
@@ -525,69 +260,71 @@ class MahasiswaController extends Controller
         return response()->download($filePath, $fileName, $headers);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function showchangepw(){
+        return view('mahasiswa.changepw');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function changepassword(Request $request){
+        $user = Auth::user();
+
+        $userPassword = $user->password;
+
+        $request->validate([
+                'current_password' => 'required',
+                'password' => 'required|string|min:8|confirmed',
+                'password_confirmation' => 'required',
+            ]);
+
+        if(!Hash::check($request->current_password, $userPassword)){
+            return back()->withErrors(['current_password' => 'Password salah']);
+        }
+
+        if(strcmp($request->get('current_password'), $request->get('password')) == 0){
+                return back()->withErrors(['password' => 'Password baru tidak boleh sama dengan password lama']);
+            }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect('/mahasiswa/profile');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function showeditprofil(){
+        return view('mahasiswa.showeditprofil');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function editprofil(Request $request){
+       $user = Auth::user();
+       $user->name = $request->name;
+       $user->kelas = $request->kelas;
+       $user->nim = $request->nim;
+       $user->semester = $request->semester;
+       $save = $user->save();
+
+       if($save){
+           return redirect('/mahasiswa/profile');
+       } else {
+           return redirect('/mahasiswa/showeditprofil');
+       }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    // public function uploadfoto(Request $request){
+    //     $fileModel = new Foto;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    //     if($request->file()){
+    //         $fileName = time().'-'.$request->file->getClientOriginalName();
+    //         $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+
+    //         $fileModel->nama_file = time().'-'.$request->file->getClientOriginalName();
+    //         $fileModel->file_path = '/storage/foto' . $filePath;
+    //         $fileModel->users_id = Auth::id();
+    //         $fileModel->nama_mhs = Auth::user()->name;
+    //         $fileModel->nim = Auth::user()->nim;
+    //         $fileModel->kelas = Auth::user()->kelas;
+    //         $fileModel->semester = Auth::user()->semester;
+    //         $fileModel->save();
+
+    //         return redirect('/mahasiswa/profile');
+    //     }
+    // }
 }

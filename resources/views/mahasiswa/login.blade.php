@@ -1,4 +1,4 @@
-@extends('mahasiswa.loginlayout')
+@extends('app.loginlayout')
 
 @section('title', 'Login Mahasiswa')
 

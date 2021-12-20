@@ -1,4 +1,4 @@
-@extends('mahasiswa.indexlayout')
+@extends('app.indexmahasiswa')
 
 @section('title', 'Homepage')
 
